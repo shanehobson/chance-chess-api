@@ -92,8 +92,10 @@ function newMove(move) {
      * Next, we actually send this message to everyone except the sender
      * in this room. 
      */
+
+     console.log(move)
     
-    const gameId = move.gameId 
+    const gameId = move.userState.gameId 
 
     console.log('player move', gameId)
     
