@@ -24,6 +24,7 @@ const io = socketio(server)
 // run when client connects
 
 io.on('connection', client => {
+    console.log(client)
     gameLogic.initializeGame(io, client)
 })
 
