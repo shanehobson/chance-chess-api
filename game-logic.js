@@ -8,7 +8,8 @@ const initializeGame = (sio, socket) => {
     gamesInSession.push(gameSocket)
     gameSocket.on("disconnect", onDisconnect)
     gameSocket.on("new move", newMove)
-    gameSocket.on("card change", cardChange),
+    gameSocket.on("player one draws", player1Draws()),
+    gameSocket.on("player two draws", player2Draws()),
     gameSocket.on("player two joins", playerTwoJoins)
     gameSocket.on("createNewGame", createNewGame)
     gameSocket.on("playerJoinGame", playerJoinsGame)
@@ -52,10 +53,16 @@ function newMove(move) {
     io.to(gameId).emit('opponent move', move);
 }
 
-function cardChange(move) {
+function playerOneDraws(move) {
     const gameId = move.gameId 
-    io.to(gameId).emit('opponent card change', move);
+    io.to(gameId).emit('player one drew', move);
 }
+
+function playerTwoDraws(move) {
+    const gameId = move.gameId 
+    io.to(gameId).emit('player two drew', move);
+}
+
 
 function playerTwoJoins(gameId) {
     io.to(gameId).emit('start game', {});
