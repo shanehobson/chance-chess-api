@@ -8,8 +8,8 @@ const initializeGame = (sio, socket) => {
     gamesInSession.push(gameSocket)
     gameSocket.on("disconnect", onDisconnect)
     gameSocket.on("new move", newMove)
-    gameSocket.on("player one draws", player1Draws()),
-    gameSocket.on("player two draws", player2Draws()),
+    gameSocket.on("player one draws", playerOneDraws()),
+    gameSocket.on("player two draws", playerTwoDraws()),
     gameSocket.on("player two joins", playerTwoJoins)
     gameSocket.on("createNewGame", createNewGame)
     gameSocket.on("playerJoinGame", playerJoinsGame)
