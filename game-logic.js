@@ -10,11 +10,12 @@ const initializeGame = (sio, socket) => {
     gameSocket.on("new move", newMove)
     gameSocket.on("player one draws", playerOneDraws),
     gameSocket.on("player two draws", playerTwoDraws),
-    gameSocket.on("player two joins", playerTwoJoins)
+    gameSocket.on("player two name", playerTwoName)
     gameSocket.on("createNewGame", createNewGame)
     gameSocket.on("playerJoinGame", playerJoinsGame)
+    gameSocket.on("player two joins", playerTwoJoins)
     gameSocket.on('request username', requestUserName)
-    gameSocket.on('recieved userName', recievedUserName)
+    gameSocket.on('received userName', recievedUserName)
 }  
 
 function playerJoinsGame(idData) {
@@ -67,6 +68,11 @@ function playerTwoDraws(move) {
 function playerTwoJoins(gameId) {
     io.to(gameId).emit('start game', {});
 }
+
+function playerTwoName(move) {
+    io.to(move.gameId).emit('player two name is', move.username);
+}
+
 
 function onDisconnect() {
     let i = gamesInSession.indexOf(gameSocket);
