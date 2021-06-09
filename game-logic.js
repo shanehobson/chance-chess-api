@@ -16,6 +16,7 @@ const initializeGame = (sio, socket) => {
     gameSocket.on("player two joins", playerTwoJoins)
     gameSocket.on('request username', requestUserName)
     gameSocket.on('received userName', recievedUserName)
+    gameSocket.on("chance chess state update", chanceChessStateUpdate)
 }  
 
 function playerJoinsGame(idData) {
@@ -52,6 +53,11 @@ function createNewGame(gameId) {
 function newMove(move) {
     const gameId = move.userState.gameId 
     io.to(gameId).emit('opponent move', move);
+}
+
+function chanceChessStateUpdate(move) {
+    const gameId = move.userState.gameId 
+    io.to(gameId).emit('chance chess state updated', move);
 }
 
 function playerOneDraws(move) {
