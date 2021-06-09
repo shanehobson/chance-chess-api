@@ -23,7 +23,6 @@ function playerJoinsGame(idData) {
     const sock = this
     
     const room = io.sockets.adapter.rooms[idData.gameId]
-   console.log(room)
 
     if (room === undefined) {
         this.emit('status' , "This game session does not exist." );
@@ -56,8 +55,8 @@ function newMove(move) {
 }
 
 function chanceChessStateUpdate(move) {
-    const gameId = move.userState.gameId 
-    io.to(gameId).emit('chance chess state updated', move);
+    const gameId = move.gameId;
+    io.to(gameId).emit('chance chess state updated', move.chanceChessState);
 }
 
 function playerOneDraws(move) {
